@@ -1,0 +1,58 @@
+#root {
+  margin: 0 auto;
+  text-align: center;
+  width: 100%;
+}
+
+
+body {
+  display: flex;
+  flex-direction: column;
+  padding: 0 20px;
+}
+
+.container {
+  display: flex;
+}
+
+.side-bar {
+  text-align: center;
+  background-color: ghostwhite;
+}
+
+ul {
+  list-style: none;
+  padding-left: 0;
+}
+
+ul li {
+  margin: 5px 0;
+}
+
+li button {
+  padding: 4px 6px;
+  margin-left: 10px ;
+}
+
+.content {
+  flex-grow: 3;
+}
+
+.grow {
+  width: 250px;
+}
+
+.form-content {
+  width: fit-content;
+  margin: 0 auto;
+  margin-bottom: 20px;
+}
+
+.form-content label{
+  margin-right: 10px;
+}
+
+
+.product-list input {
+  margin-right: 10px;
+}
