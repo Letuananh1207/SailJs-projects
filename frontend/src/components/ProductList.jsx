@@ -34,7 +34,7 @@ function ProductList({products, onDeleteProduct, onUpdateProduct}){
                         {index !== editIndex ? (
                             <>
                                 {product.name} - {product.price} VND
-                                <button onClick={() => {onDeleteProduct(index)}}>
+                                <button onClick={() => {onDeleteProduct(product.id)}}>
                                     x
                                 </button>
                                 <button onClick={()=> handleEdit(index)}>
@@ -45,7 +45,7 @@ function ProductList({products, onDeleteProduct, onUpdateProduct}){
                             <>
                                 <input type="text" value={editValue.name} onChange={handleChange} name="name"/>
                                 <input type="number" value={editValue.price} onChange={handleChange} name="price"/>
-                                <button onClick={()=> handleSave(index, editValue)}>Lưu</button>
+                                <button onClick={()=> handleSave(product.id, editValue)}>Lưu</button>
                                 <button onClick={()=> setEditIndex(null)}>Hủy</button>
                             </>
                         )

@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
+import axios from 'axios';
 import ProductList from './components/ProductList'
 import ProductForm from './components/ProductForm'
 import './App.css'
@@ -15,28 +14,38 @@ function App() {
   ]
   );
   useEffect(() => {
-    fetch('http://localhost:1337/api/ping')
-    .then((res)=> res.json())
-    .then((data)=> {
-      setMessage(data.message);
-    })
-    .catch((error) => console.log(error))
-  },[]);
+    axios.get('http://localhost:1337/api/ping')
+      .then((res) => {
+        setMessage(res.data.message);  
+      })
+      .catch((error) => console.error(error));
 
-  function onAddProduct(product){
-    setProducts(prev => [...prev, product] )
+    axios.get('http://localhost:1337/api/product')
+      .then((res)=> {
+        setProducts(res.data)
+      })
+  }, []);
+
+
+  async function onAddProduct(product) {
+    axios.post('http://localhost:1337/api/product/add', product)
+    .then((res)=> {
+      setProducts(res.data)
+    })
   };
 
-  function onDeleteProduct(index){
-    setProducts(prev => products.filter((_, i) => i !== index));
+  async function onDeleteProduct(index){
+    axios.post(`http://localhost:1337/api/product/delete/${index}`)
+    .then((res)=> {
+      setProducts(res.data)
+    })
   }
 
-  function onUpdateProduct(index, newValue){
-    setProducts(prev =>
-      prev.map((item, i)=> {
-        return i == index ? newValue : item
-      })
-    );
+  async function onUpdateProduct(index, newValue){
+    axios.post(`http://localhost:1337/api/product/update/${index}`, newValue)
+    .then((res)=> {
+      setProducts(res.data);
+    })
   }
 
   return (
@@ -69,3 +78,4 @@ function App() {
 }
 
 export default App
+
