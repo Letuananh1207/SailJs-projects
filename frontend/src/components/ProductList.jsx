@@ -7,32 +7,29 @@ const PAGE_SIZE = 5;
 function ProductList({ products, onDeleteProduct, onUpdateProduct }) {
     const [searchTerm, setSearchTerm] = useState("");
     const [currentPage, setCurrentPage] = useState(1);
-    const [editIndex, setEditIndex] = useState(null);
+    const [editIndex, setEditIndex] = useState(null); // để xác định vị trí item đang sửa
     const [editValue, setEditValue] = useState({ name: "", price: 0 });
 
-    // Lọc danh sách theo từ khoá
     const filteredProducts = useMemo(() => {
         return products
-            .map((product, index) => ({ ...product, originalIndex: index }))
+            .map((product, index) => ({ ...product, originalIndex: index })) 
             .filter(product =>
                 product.name.toLowerCase().includes(searchTerm.toLowerCase())
             );
     }, [products, searchTerm]);
 
-    // Tổng số trang
     const totalPages = useMemo(() => {
         return Math.ceil(filteredProducts.length / PAGE_SIZE);
     }, [filteredProducts]);
 
-    // Sản phẩm của trang hiện tại
     const paginatedProducts = useMemo(() => {
         const start = (currentPage - 1) * PAGE_SIZE;
         return filteredProducts.slice(start, start + PAGE_SIZE);
     }, [filteredProducts, currentPage]);
 
-    function handleEdit(index) {
-        setEditIndex(index);
-        setEditValue({ ...products[index] });
+    function handleEdit(productIndexInOriginal) {
+        setEditIndex(productIndexInOriginal);
+        setEditValue({ ...products[productIndexInOriginal] });
     }
 
     function handleChange(e) {
@@ -43,8 +40,8 @@ function ProductList({ products, onDeleteProduct, onUpdateProduct }) {
         }));
     }
 
-    function handleSave(index) {
-        onUpdateProduct(index, editValue);
+    function handleSave(productId) {
+        onUpdateProduct(productId, editValue);
         setEditIndex(null);
     }
 
@@ -65,11 +62,11 @@ function ProductList({ products, onDeleteProduct, onUpdateProduct }) {
             <ul>
                 {paginatedProducts.map((product) => (
                     <li key={product._id}>
-                        {editIndex !== product.originalIndex ? (
+                        {product.originalIndex !== editIndex ? (
                             <>
                                 {product.name} - {product.price} VND
-                                <button onClick={() => onDeleteProduct(product._id)}>x</button>
-                                <button onClick={() => handleEdit(product.originalIndex)}>Edit</button>
+                                <button onClick={() => onDeleteProduct(product.id)}>Xoá</button>
+                                <button onClick={() => handleEdit(product.originalIndex)}>Sửa</button>
                             </>
                         ) : (
                             <>
@@ -85,7 +82,7 @@ function ProductList({ products, onDeleteProduct, onUpdateProduct }) {
                                     onChange={handleChange}
                                     name="price"
                                 />
-                                <button onClick={() => handleSave(product.originalIndex)}>Lưu</button>
+                                <button onClick={() => handleSave(product.id)}>Lưu</button>
                                 <button onClick={() => setEditIndex(null)}>Hủy</button>
                             </>
                         )}

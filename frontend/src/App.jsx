@@ -15,6 +15,8 @@ function App() {
     []
   );
   const [theme, setTheme] = useState("light");
+  const [lastVisit, setLastVisit] = useState("");
+
   useEffect(() => {
     axios.get('http://localhost:1337/api/ping')
       .then((res) => {
@@ -27,6 +29,17 @@ function App() {
         setProducts(res.data)
       })
 
+    // Thời gian ghé thăm
+    const now = new Date().toLocaleString();
+
+    const last = localStorage.getItem("lastVisit");
+    if (last) {
+      setLastVisit(last);
+    } else {
+      setLastVisit("Đây là lần truy cập đầu tiên.");
+    }
+
+    localStorage.setItem("lastVisit", now);
     setTheme(localStorage.getItem("theme"));
   }, []);
 
@@ -80,7 +93,7 @@ function App() {
             </Routes>
           </div>
         </div>
-        <Footer/>
+        <Footer lastVisit={lastVisit}/>
       </div>
     </BrowserRouter>
     </>

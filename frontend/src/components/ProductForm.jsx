@@ -18,10 +18,10 @@ function ProductForm({ setProducts, onAddProduct }) {
 
   function handleSubmit() {
     onAddProduct(formData);
-    setSuccessMessage("✅ Thêm sản phẩm thành công!");
+    setSuccessMessage("Thêm sản phẩm thành công!");
     setFormData({ name: "", price: 0 });
 
-    // Ẩn thông báo sau 3 giây (tuỳ chọn)
+    // Ẩn thông báo sau 3 giây 
     setTimeout(() => setSuccessMessage(""), 3000);
   }
 
@@ -39,7 +39,7 @@ function ProductForm({ setProducts, onAddProduct }) {
               <input
                 type="text"
                 id="product-name"
-                placeholder="Áo phao"
+                placeholder="....."
                 name="name"
                 value={formData.name}
                 onChange={handleChange}
@@ -64,7 +64,7 @@ function ProductForm({ setProducts, onAddProduct }) {
         </tbody>
       </table>
 
-      <button onClick={handleSubmit}>Lưu danh sách</button>
+      <button onClick={handleSubmit}>Thêm</button>
 
       {/* Hiển thị thông báo nếu có */}
       {successMessage && <p style={{ color: "green", marginTop: "10px" }}>{successMessage}</p>}
