@@ -1,34 +1,32 @@
-const products = require("../data/products")
 
 module.exports = {
-    find : function(req, res) {
-        res.json(products);
+    find : async function(req, res) {
+        const products = await Product.find();
+        return res.json(products);
     },
 
-    create : function(req, res){
+    create : async function(req, res){
         const {name, price} = req.body;
-        const newProduct = [...products, {id: products.length+1,name, price}];
-        console.log("Đã thêm sản phẩm mới");
-        res.json(newProduct);
+        const product = await Product.create({name, price}).fetch();
+        const newProducts = await Product.find();
+        console.log(`Đã thêm sản phẩm mới ${product}`);
+        return res.json(newProducts);
     },
 
-    delete : function(req, res){
+    delete : async function(req, res){
         const deleteId = req.params.id;
-        const newProducts = products.filter((product) => product.id != deleteId);
-        console.log(`Đã xóa sản phẩm ${deleteId}`)
-        res.json(newProducts);
+        await Product.destroy({_id : deleteId});
+        const newProducts = await Product.find();
+        console.log(`Đã xóa sản phẩm thành công`)
+        return res.json(newProducts);
     },
 
-    update : function(req, res){
+    update : async function(req, res){
         const updateId = req.params.id;
         const updateInfo = req.body;
-        const newProducts = products.map((product) => {
-            if(product.id == updateId) {
-                return {...product, ...updateInfo};
-            }
-            return product
-        })
-        console.log(`Đã cập nhật sản phẩm ${updateId}`);
-        res.json(newProducts)
+        await Product.update({_id : updateId}, {name : updateInfo.name, price : updateInfo.price});
+        const newProducts = await Product.find();
+        console.log(`Đã cập nhật sản phẩm thành công`);
+        return res.json(newProducts)
     }
 }

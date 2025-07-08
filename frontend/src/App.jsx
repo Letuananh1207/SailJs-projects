@@ -1,18 +1,20 @@
 import { useState, useEffect } from 'react'
+import {BrowserRouter, Routes, Route} from 'react-router-dom'
 import axios from 'axios';
 import ProductList from './components/ProductList'
 import ProductForm from './components/ProductForm'
+import Header from './components/Header';
+import Footer from './components/Footer'
+import AboutPage from './components/AboutPage'
+
 import './App.css'
 
 function App() {
   const [message, setMessage] = useState(""); 
   const [products, setProducts] = useState(
-    [
-    { name: "Áo thun", price: 150000 },
-    { name: "Quần jeans", price: 350000 },
-    { name: "Giày sneaker", price: 800000 }
-  ]
+    []
   );
+  const [theme, setTheme] = useState("light");
   useEffect(() => {
     axios.get('http://localhost:1337/api/ping')
       .then((res) => {
@@ -24,6 +26,8 @@ function App() {
       .then((res)=> {
         setProducts(res.data)
       })
+
+    setTheme(localStorage.getItem("theme"));
   }, []);
 
 
@@ -47,32 +51,38 @@ function App() {
       setProducts(res.data);
     })
   }
+  
+  function saveTheme(theme){
+    setTheme(theme);
+    localStorage.setItem("theme", theme);
+  }
 
   return (
     <>
-    <header>
-      <h1>Header</h1>
-    </header>
-    <div className='container'>
-      <div className='side-bar grow'>
-        <nav>
-          <ul>
-            <li><a href="#gioithieu">Giới thiệu</a></li>
-            <li><a href="#sanpham">Danh sách sản phẩm</a></li>
-            <li><a href="#form">Thêm sản phẩm</a></li>
-          </ul>
-        </nav>
+    <BrowserRouter>
+      <div className="app-layout">
+        <Header theme = {theme} onChangeTheme = {saveTheme}/>
+        <div className='container'>
+          <div className='side-bar grow'>
+            <nav>
+              <ul>
+                <li><a href="/about">Giới thiệu</a></li>
+                <li><a href="/products">Danh sách sản phẩm</a></li>
+                <li><a href="/add">Thêm sản phẩm</a></li>
+              </ul>
+            </nav>
+          </div>
+          <div className='content'>
+            <Routes>
+                <Route path= "/about" element = {<AboutPage message={message}/>}/>
+                <Route path= "/add" element = {<ProductForm setProducts={setProducts} onAddProduct={onAddProduct}/>}/>
+                <Route path= "/products" element = {<ProductList products={products} onDeleteProduct={onDeleteProduct} onUpdateProduct= {onUpdateProduct}/>}/>
+            </Routes>
+          </div>
+        </div>
+        <Footer/>
       </div>
-      <main className='content'>
-        <section id='gioithieu'>
-          <h2>Welcome to My CMS</h2>
-          <p>{message}</p>
-        </section>
-        <ProductList products={products} onDeleteProduct={onDeleteProduct} onUpdateProduct= {onUpdateProduct}/>
-        <ProductForm setProducts={setProducts} onAddProduct={onAddProduct}/>
-      </main>
-      <div className='grow'></div>
-    </div>
+    </BrowserRouter>
     </>
   )
 }

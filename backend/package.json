@@ -8,7 +8,8 @@
     "@sailshq/lodash": "^3.10.6",
     "sails": "^1.5.14",
     "sails-hook-orm": "^4.0.3",
-    "sails-hook-sockets": "^3.0.0"
+    "sails-hook-sockets": "^3.0.0",
+    "sails-mongo": "^2.1.2"
   },
   "devDependencies": {
     "cross-env": "^7.0.3",

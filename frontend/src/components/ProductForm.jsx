@@ -1,34 +1,75 @@
 import { useState } from "react";
 
-function ProductForm({setProducts, onAddProduct}){
-    const [formData, setFormData] = useState({
-        name : "",
-        price : 0,
-    });
+function ProductForm({ setProducts, onAddProduct }) {
+  const [formData, setFormData] = useState({
+    name: "",
+    price: 0,
+  });
 
-    function handleChange(e){
-        const {name , value} = e.target;
-        setFormData(prev => (
-            {...prev, [name] : value}
-        ))
-    };
+  const [successMessage, setSuccessMessage] = useState("");
 
-    return(
-        <section className="product-form">
-            <h2>Thêm sản phẩm</h2>
-            <table className="form-content">
-                    <tr>
-                        <td><label htmlFor="product-name">Tên sản phẩm</label></td>
-                        <td><input type="text" id="product-name" placeholder="Áo phao" name="name" onChange={handleChange}/></td>
-                    </tr>
-                    <tr>
-                        <td><label htmlFor="product-price">Giá</label></td>
-                        <td><input type="number" id="product-price" placeholder="0" name="price" onChange={handleChange}/></td>
-                    </tr>
-            </table>
-            <button onClick={()=> onAddProduct(formData)}>Lưu danh sách</button>
-        </section>
-    );
+  function handleChange(e) {
+    const { name, value } = e.target;
+    setFormData((prev) => ({
+      ...prev,
+      [name]: name === "price" ? Number(value) : value,
+    }));
+  }
+
+  function handleSubmit() {
+    onAddProduct(formData);
+    setSuccessMessage("✅ Thêm sản phẩm thành công!");
+    setFormData({ name: "", price: 0 });
+
+    // Ẩn thông báo sau 3 giây (tuỳ chọn)
+    setTimeout(() => setSuccessMessage(""), 3000);
+  }
+
+  return (
+    <section className="product-form">
+      <h2>Thêm sản phẩm</h2>
+
+      <table className="form-content">
+        <tbody>
+          <tr>
+            <td>
+              <label htmlFor="product-name">Tên sản phẩm</label>
+            </td>
+            <td>
+              <input
+                type="text"
+                id="product-name"
+                placeholder="Áo phao"
+                name="name"
+                value={formData.name}
+                onChange={handleChange}
+              />
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <label htmlFor="product-price">Giá</label>
+            </td>
+            <td>
+              <input
+                type="number"
+                id="product-price"
+                placeholder="0"
+                name="price"
+                value={formData.price}
+                onChange={handleChange}
+              />
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <button onClick={handleSubmit}>Lưu danh sách</button>
+
+      {/* Hiển thị thông báo nếu có */}
+      {successMessage && <p style={{ color: "green", marginTop: "10px" }}>{successMessage}</p>}
+    </section>
+  );
 }
 
 export default ProductForm;

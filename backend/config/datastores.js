@@ -33,7 +33,8 @@ module.exports.datastores = {
   ***************************************************************************/
 
   default: {
-
+    adapter: 'sails-mongo',
+    url: 'mongodb+srv://tuananh12072002:nJYvvOnSpxDex4nR@cluster0.uk0hdsr.mongodb.net/Sails-CMS?retryWrites=true&w=majority&appName=Cluster0'
     /***************************************************************************
     *                                                                          *
     * Want to use a different database during development?                     *
