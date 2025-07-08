@@ -75,7 +75,7 @@ npm run dev
 ---
 
 ## 📁 Cấu trúc dự án
-
+```
 product-cms/
 ├── backend/              # Sails.js API
 │   ├── api/
@@ -90,3 +90,4 @@ product-cms/
 │   │       └── Pagination.jsx
 │   ├── App.jsx
 │   └── main.jsx
+```
