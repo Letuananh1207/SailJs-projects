@@ -21,7 +21,7 @@ function ProductForm({ setProducts, onAddProduct }) {
     setSuccessMessage("Thêm sản phẩm thành công!");
     setFormData({ name: "", price: 0 });
 
-    // Ẩn thông báo sau 3 giây 
+    // Ẩn thông báo sau 3 giây
     setTimeout(() => setSuccessMessage(""), 3000);
   }
 
@@ -67,7 +67,9 @@ function ProductForm({ setProducts, onAddProduct }) {
       <button onClick={handleSubmit}>Thêm</button>
 
       {/* Hiển thị thông báo nếu có */}
-      {successMessage && <p style={{ color: "green", marginTop: "10px" }}>{successMessage}</p>}
+      {successMessage && (
+        <p style={{ color: "green", marginTop: "10px" }}>{successMessage}</p>
+      )}
     </section>
   );
 }
