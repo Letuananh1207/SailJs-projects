@@ -48,6 +48,7 @@ body {
 .side-bar {
   text-align: center;
   background-color: ghostwhite;
+  flex-shrink: 0;
 }
 
 ul {

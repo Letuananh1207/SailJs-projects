@@ -5,6 +5,8 @@ import ProductList from "./components/ProductList";
 import ProductForm from "./components/ProductForm";
 import AboutPage from "./components/AboutPage";
 import AuthPage from "./components/AuthPage";
+import RoleConfigPage from "./components/RoleConfigPage";
+
 import "./App.css";
 import MainLayout from "./layouts/MainLayout";
 
@@ -102,6 +104,8 @@ function App() {
                 />
               }
             />
+
+            <Route path="/config" element={<RoleConfigPage />} />
           </Route>
         </Routes>
       </BrowserRouter>

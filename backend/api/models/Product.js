@@ -1,6 +1,7 @@
 module.exports = {
   attributes: {
-    name: { type: "string", required: true, unique: true },
+    id: { type: "string", columnName: "_id" },
+    name: { type: "string", required: true },
     price: { type: "number", required: true },
   },
 };

@@ -9,10 +9,17 @@
  */
 
 module.exports.routes = {
-'GET /api/ping' : 'PingController.ping',
-'GET /api/product' : 'ProductController.find',
-'POST /api/product/add' : 'ProductController.create',
-'POST /api/product/delete/:id' : 'ProductController.delete',
-'POST /api/product/update/:id' : 'ProductController.update'
-
+  "GET /api/ping": "PingController.ping",
+  "GET /api/product": "ProductController.find",
+  "POST /api/product/add": "ProductController.create",
+  "POST /api/product/delete/:id": "ProductController.delete",
+  "POST /api/product/update/:id": "ProductController.update",
+  "POST /api/auth/register": "AuthController.register",
+  "POST /api/auth/login": "AuthController.login",
+  "GET /api/auth/profile": "AuthController.getProfile",
+  "POST /api/auth/logout": "AuthController.logout",
+  "GET /api/users": "UserController.find",
+  "PUT /api/users/:id/permissions": "UserController.updatePermissions",
+  "DELETE /api/users/:id/permissions/:resource":
+    "UserController.removePermission",
 };

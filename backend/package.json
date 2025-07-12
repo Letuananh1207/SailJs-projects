@@ -6,6 +6,9 @@
   "keywords": [],
   "dependencies": {
     "@sailshq/lodash": "^3.10.6",
+    "bcryptjs": "^3.0.2",
+    "cookie-parser": "^1.4.7",
+    "jsonwebtoken": "^9.0.2",
     "sails": "^1.5.14",
     "sails-hook-orm": "^4.0.3",
     "sails-hook-sockets": "^3.0.0",

@@ -31,12 +31,14 @@ module.exports = {
     try {
       const deleteId = req.params.id;
 
-      const found = await Product.findOne({ _id: deleteId });
+      const found = await Product.findOne({ id: deleteId }); // ✅ Đổi _id → id
       if (!found) {
-        return res.status(404).json({ error: "Không tìm thấy sản phẩm để xoá" });
+        return res
+          .status(404)
+          .json({ error: "Không tìm thấy sản phẩm để xoá" });
       }
 
-      await Product.destroy({ _id: deleteId });
+      await Product.destroy({ id: deleteId }); // ✅ Đổi _id → id
       const newProducts = await Product.find();
       console.log(`Đã xóa sản phẩm có ID: ${deleteId}`);
       return res.json(newProducts);
@@ -51,18 +53,22 @@ module.exports = {
       const updateId = req.params.id;
       const { name, price } = req.body;
 
-      const found = await Product.findOne({ _id: updateId });
+      const found = await Product.findOne({ id: updateId }); // ✅ Đổi _id → id
       if (!found) {
-        return res.status(404).json({ error: "Không tìm thấy sản phẩm để cập nhật" });
+        return res
+          .status(404)
+          .json({ error: "Không tìm thấy sản phẩm để cập nhật" });
       }
 
-      await Product.update({ _id: updateId }, { name, price });
+      await Product.update({ id: updateId }, { name, price }); // ✅ Đổi _id → id
       const newProducts = await Product.find();
-      console.log(`Đã cập nhật sản phẩm ID ${updateId} thành: { name: ${name}, price: ${price} }`);
+      console.log(
+        `Đã cập nhật sản phẩm ID ${updateId} thành: { name: ${name}, price: ${price} }`
+      );
       return res.json(newProducts);
     } catch (err) {
       console.error("Lỗi khi cập nhật sản phẩm:", err);
       return res.status(500).json({ error: "Không thể cập nhật sản phẩm" });
     }
-  }
+  },
 };
