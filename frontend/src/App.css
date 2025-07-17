@@ -2,8 +2,8 @@
   text-align: center;
   width: 100%;
 }
-/*Header*/
 
+/*Header*/
 header {
   background-color: honeydew;
   display: flex;
@@ -13,13 +13,17 @@ header .header-content {
   flex-grow: 1;
   padding-left: 310px;
 }
-
 header .theme-bar {
   width: 100px;
 }
-
 .auth-bar .auth-btn {
   margin-right: 30px;
+}
+
+.ant-btn:focus,
+.ant-btn:active {
+  outline: none !important;
+  box-shadow: none !important;
 }
 
 footer {
@@ -27,7 +31,8 @@ footer {
   line-height: 60px;
   padding-left: 250px;
 }
-/*cấu trúc thân*/
+
+/*Cấu trúc thân*/
 .app-layout {
   display: flex;
   flex-direction: column;
@@ -71,7 +76,6 @@ ul li {
   align-items: center;
   gap: 8px; /* khoảng cách giữa các phần */
   background-color: #f2f2f2;
-  padding: 20px;
   text-align: center;
   border-radius: 8px;
   height: 100px;
@@ -85,7 +89,12 @@ ul li {
 
 li button {
   padding: 4px 6px;
-  margin-left: 10px;
+}
+
+/* Đặc biệt cho nút phân trang */
+.pagination-button {
+  padding: 8px 12px; /* Điều chỉnh padding */
+  line-height: 32px; /* Căn chỉnh văn bản */
 }
 
 .content {

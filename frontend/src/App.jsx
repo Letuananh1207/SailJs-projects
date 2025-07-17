@@ -1,11 +1,13 @@
 import { useState, useEffect } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import axios from "axios";
-import ProductList from "./components/ProductList";
-import ProductForm from "./components/ProductForm";
-import AboutPage from "./components/AboutPage";
-import AuthPage from "./components/AuthPage";
-import RoleConfigPage from "./components/RoleConfigPage";
+import ProductList from "./pages/ProductList";
+import ProductForm from "./pages/ProductForm";
+import AboutPage from "./pages/AboutPage";
+import AuthPage from "./pages/AuthPage";
+import RoleConfigPage from "./pages/RoleConfigPage";
+import PageManagement from "./pages/PageManagement";
+import DynamicPage from "./pages/DynamicPage";
 
 import "./App.css";
 import MainLayout from "./layouts/MainLayout";
@@ -105,7 +107,9 @@ function App() {
               }
             />
 
-            <Route path="/config" element={<RoleConfigPage />} />
+            <Route path="/role-config" element={<RoleConfigPage />} />
+            <Route path="/dynamic-config" element={<PageManagement />} />
+            <Route path="/dynamic-pages" element={<DynamicPage />} />
           </Route>
         </Routes>
       </BrowserRouter>

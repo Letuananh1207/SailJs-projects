@@ -62,6 +62,7 @@ module.exports = {
         "email",
         "username",
         "role",
+        "isAdmin",
       ]);
 
       return res.status(200).json({ user });

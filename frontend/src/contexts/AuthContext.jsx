@@ -11,7 +11,6 @@ export const AuthProvider = ({ children }) => {
     axios
       .get("http://localhost:1337/api/auth/profile", { withCredentials: true })
       .then((res) => {
-        console.log("🌟 Lấy user thành công:", res.data.user);
         setUser(res.data.user);
       })
       .catch((err) => {

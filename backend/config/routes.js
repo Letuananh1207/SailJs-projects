@@ -22,4 +22,10 @@ module.exports.routes = {
   "PUT /api/users/:id/permissions": "UserController.updatePermissions",
   "DELETE /api/users/:id/permissions/:resource":
     "UserController.removePermission",
+  "GET /api/page-config": "PageConfigController.get",
+  "GET /api/page-config/all": "PageConfigController.getAll",
+  "GET /api/page-config/:id": "PageConfigController.findOne",
+  "POST /api/page-config": "PageConfigController.create",
+  "PUT /api/page-config/:id": "PageConfigController.update",
+  "DELETE /api/page-config/:id": "PageConfigController.delete",
 };
